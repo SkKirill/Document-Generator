@@ -1,0 +1,30 @@
+﻿<mah:MetroWindow x:Class="CreaterFromVSU.ViewModel.CheckCreate.CheckCreateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CreaterFromVSU.ViewModel.CheckCreate"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Выбор типов файлов" MaxWidth="600" MaxHeight="335">
+    <StackPanel Orientation="Vertical" Width="Auto" Height="Auto">
+        <CheckBox x:Name="city_dist" Background="White" Margin="8,10,5,2" Content="Города-дистант" Foreground="White"/>
+        <CheckBox x:Name="city_ochno" Background="White" Margin="8,0,5,4" Content="Города-очно" Foreground="White"/>
+        <CheckBox x:Name="diplom_dist" Background="White" Margin="8,10,5,2" Content="Дипломы-дистант" Foreground="White"/>
+        <CheckBox x:Name="diplom_ochno" Background="White" Margin="8,0,5,4" Content="Дипломы-очно" Foreground="White"/>
+        <CheckBox x:Name="sertific_dist" Background="White" Margin="8,10,5,2" Content="Сертификаты-дистант" Foreground="White"/>
+        <CheckBox x:Name="sertific_ochno" Background="White" Margin="8,0,5,4" Content="Сертификаты-очно" Foreground="White"/>
+        <CheckBox x:Name="sertificFrom_dist" Background="White" Margin="8,10,5,2" Content="Сертификаты__с__подложкой-дистант" Foreground="White"/>
+        <CheckBox x:Name="sertificFrom_ochno" Background="White" Margin="8,0,5,4" Content="Сертификаты__с__подложкой-очно" Foreground="White"/>
+        <CheckBox x:Name="moder_dist" Background="White" Margin="8,10,5,2" Content="Листы__модераторам-дистант" Foreground="White"/>
+        <CheckBox x:Name="moder_ochno" Background="White" 
+                      Margin="8,0,5,4" Content="Листы_модераторам-очно" 
+                      Foreground="White"/>
+
+        <Button Margin="5" 
+                Content="Выбрать типы файлов для создания"  
+                Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
+                Command="{Binding SearchUserCommand}" CommandParameter="{Binding SearchListUsers}" 
+                BorderThickness="0"/>
+    </StackPanel>
+</mah:MetroWindow>

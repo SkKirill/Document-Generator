@@ -4,11 +4,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MyWinForm = System.Windows.Forms;
 using MyWinApiPack = Microsoft.WindowsAPICodePack;
+using MahApps.Metro.Controls;
 
 
 namespace CreaterFromVSU
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         // Сообщения об ошибки пользователю //
         private const string ERROR_MESSAGE_PATH_PICTURE = @"Вы не указали расположение файла подложки(картинка/скан сертификата). Попробуйте еще раз!";
@@ -38,104 +39,6 @@ namespace CreaterFromVSU
             InitializeComponent();
         }
 
-        private void ButtonCollapse_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonCollapse.Background = new SolidColorBrush(Color.FromRgb(62, 62, 246));
-        }
-
-        private void ButtonCollapse_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonCollapse.Background = new SolidColorBrush(Color.FromRgb(121, 121, 227));
-        }
-
-        private void ButtonExsit_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonExsit.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-        }
-
-        private void ButtonExsit_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonExsit.Background = new SolidColorBrush(Color.FromRgb(255, 80, 80));
-        }
-
-        private void TopPanel_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isDragging = false;
-        }
-
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void TopPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                Point currentPosition = e.GetPosition(this);
-                Left = Left - (lastPosition.X - currentPosition.X);
-                Top = Top - (lastPosition.Y - currentPosition.Y);
-            }
-        }
-
-        private void TopPanel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isDragging = true;
-            lastPosition = e.GetPosition(this);
-        }
-
-        private void ButtonInfoOpen_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonInfoOpen.Background = new SolidColorBrush(Color.FromRgb(153, 153, 153));
-        }
-
-        private void buttonOpenFileExcel_MouseEnter(object sender, MouseEventArgs e)
-        {
-            buttonOpenFileExcel.Background = new SolidColorBrush(Color.FromRgb(153, 153, 153));
-        }
-
-        private void buttonOpenFolder_MouseEnter(object sender, MouseEventArgs e)
-        {
-            buttonOpenFolder.Background = new SolidColorBrush(Color.FromRgb(153, 153, 153));
-        }
-        private void buttonOpenFilePodl_MouseEnter(object sender, MouseEventArgs e)
-        {
-            buttonOpenFilePodl.Background = new SolidColorBrush(Color.FromRgb(153, 153, 153));
-        }
-
-        private void buttonStartProgram_MouseEnter(object sender, MouseEventArgs e)
-        {
-            buttonStartProgram.Background = new SolidColorBrush(Color.FromRgb(153, 153, 153));
-        }
-
-        private void ButtonInfoOpen_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonInfoOpen.Background = new SolidColorBrush(Color.FromRgb(73, 73, 73));
-        }
-
-        private void buttonStartProgram_MouseLeave(object sender, MouseEventArgs e)
-        {
-            buttonStartProgram.Background = new SolidColorBrush(Color.FromRgb(73, 73, 73));
-        }
-
-        private void buttonOpenFolder_MouseLeave(object sender, MouseEventArgs e)
-        {
-            buttonOpenFolder.Background = new SolidColorBrush(Color.FromRgb(73, 73, 73));
-        }
-        private void buttonOpenFilePodl_MouseLeave(object sender, MouseEventArgs e)
-        {
-            buttonOpenFilePodl.Background = new SolidColorBrush(Color.FromRgb(73, 73, 73));
-        }
-
-        private void buttonOpenFileExcel_MouseLeave(object sender, MouseEventArgs e)
-        {
-            buttonOpenFileExcel.Background = new SolidColorBrush(Color.FromRgb(73, 73, 73));
-        }
-
-        private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
         private string openFileDialog()
         {
             try
@@ -152,16 +55,7 @@ namespace CreaterFromVSU
             }
             return string.Empty;
         }
-        private void buttonOpenFileExcel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            filePathOpen = openFileDialog();
-            LableFileExcel.Content = filePathOpen;
-        }
-        private void buttonOpenFilePodl_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            filePathPicture = openFileDialog();
-            LablePodlFile.Content = filePathPicture;
-        }
+      
         private void buttonOpenFolder_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
@@ -171,7 +65,6 @@ namespace CreaterFromVSU
                 if (!string.IsNullOrEmpty(ofd.FileName))
                 {
                     folderPathSave = ofd.FileName;
-                    LableFolder.Content = folderPathSave;
                 }
             }
             catch { }
