@@ -13,8 +13,6 @@
     <None Remove="PmmPMM.png" />
     <None Remove="PrimerAtribyte.png" />
     <None Remove="PrimerExcel.png" />
-    <None Remove="ViewModel\PrimerAtribyte.png" />
-    <None Remove="ViewModel\PrimerExcel.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,8 +53,6 @@
     <Resource Include="Resourses\Images\PmmPMM.png" />
     <Resource Include="Resourses\Images\PrimerAtribyte.png" />
     <Resource Include="Resourses\Images\PrimerExcel.png" />
-    <Resource Include="ViewModel\PrimerAtribyte.png" />
-    <Resource Include="ViewModel\PrimerExcel.png" />
   </ItemGroup>
 
 </Project>
