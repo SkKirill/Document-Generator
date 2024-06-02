@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CreaterFromVSU.ViewModel.Utilites;
 
 namespace CreaterFromVSU.ViewModel.WorkConsole
 {
-    class WorkConsoleViewModel
+    class WorkConsoleViewModel : BasicViewModel
     {
+        private string _logText;
+        public string LogText {  
+            get 
+            { 
+                return _logText; 
+            } 
+            set 
+            { 
+                _logText = value;
+                OnPropertyChanged("LogText");
+            } 
+        }
     }
 }

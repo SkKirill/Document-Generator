@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PmmPMM.png" />
     <None Remove="PrimerAtribyte.png" />
     <None Remove="PrimerExcel.png" />
   </ItemGroup>
@@ -48,11 +47,15 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="PDFsharp" Version="6.1.0" />
+    <PackageReference Include="WinCopies.WindowsAPICodePack.PortableDevices" Version="2.12.0.1" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resourses\Images\PmmPMM.png" />
-    <Resource Include="Resourses\Images\PrimerAtribyte.png" />
+    <Resource Include="Resourses\Images\PrimerAtribyte.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resourses\Images\PrimerExcel.png" />
   </ItemGroup>
 

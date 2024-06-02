@@ -7,6 +7,9 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="Выбор типов файлов" MaxWidth="600" MaxHeight="335">
+    <mah:MetroWindow.DataContext>
+        <local:CheckCreateViewModel></local:CheckCreateViewModel>
+    </mah:MetroWindow.DataContext>
     <StackPanel Orientation="Vertical" Width="Auto" Height="Auto">
         <CheckBox x:Name="city_dist" Background="White" Margin="8,10,5,2" Content="Города-дистант" Foreground="White"/>
         <CheckBox x:Name="city_ochno" Background="White" Margin="8,0,5,4" Content="Города-очно" Foreground="White"/>
@@ -24,7 +27,7 @@
         <Button Margin="5" 
                 Content="Выбрать типы файлов для создания"  
                 Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                Command="{Binding SearchUserCommand}" CommandParameter="{Binding SearchListUsers}" 
+                Command="{Binding CheckCreateFilesCommand}"
                 BorderThickness="0"/>
     </StackPanel>
 </mah:MetroWindow>

@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="WindowHelpInfoxaml" Height="Auto" Width="Auto">
+        Title="Информация по созданию" Height="350" Width="Auto">
     <StackPanel Orientation="Vertical" Margin="5">
-        <TextBlock Text="Важен порядок, названия листов в файле и название столбцов таблицы не имеет значения."/>
-        <TextBlock Text="Информация для файлов:"/>
-        <Image Source="/ViewModel/PrimerAtribyte.png"></Image>
+        <TextBlock Text="Важен порядок столбцов Excel, названия листов в файле и название столбцов таблицы не имеет значения."/>
+        <TextBlock Text="Информация для файлов с данными должна выглядеть:"/>
+        <Border Margin="5" Grid.Row="0" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2">
+            <Image Source="D:\ПапкаКирилла\Работа_Стажировка\Робоарт_2024\Программа\Приложение\CreaterFromVSU\CreaterFromVSU\Resourses\Images\PrimerAtribyte.png"></Image>
+        </Border>
         <TextBlock Text="Расположение листов в экселе:"/>
-        <Image Source="/ViewModel/PrimerExcel.png"></Image>
+        <Image HorizontalAlignment="Left" Margin="5" Source="D:\ПапкаКирилла\Работа_Стажировка\Робоарт_2024\Программа\Приложение\CreaterFromVSU\CreaterFromVSU\Resourses\Images\PrimerExcel.png"></Image>
     </StackPanel>
 </mah:MetroWindow>

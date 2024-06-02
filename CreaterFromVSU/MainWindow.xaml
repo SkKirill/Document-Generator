@@ -3,16 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CreaterFromVSU.ViewModel.CheckCreate"
+        xmlns:local="clr-namespace:CreaterFromVSU.ViewModel"
         xmlns:localMain="clr-namespace:CreaterFromVSU.ViewModel"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
         mc:Ignorable="d"
-        Title="Работа с документами Poбоарт" Height="220" MaxHeight="250" Width="650" MinWidth="300">
-    <mah:MetroWindow.Resources>
-        <DataTemplate DataType="{x:Type local:CheckCreateViewModel}">
-            <local:CheckCreateView></local:CheckCreateView>
-        </DataTemplate>
-    </mah:MetroWindow.Resources>
+        Title="Работа с документами Poбоарт" Height="220" MaxHeight="250" Width="700" MinWidth="300" Icon="D:\ПапкаКирилла\Работа_Стажировка\Робоарт_2024\Программа\Приложение\CreaterFromVSU\CreaterFromVSU\Resourses\Images\PmmPMM.png">
     <mah:MetroWindow.DataContext>
         <localMain:MainViewModel></localMain:MainViewModel>
     </mah:MetroWindow.DataContext>
@@ -24,112 +19,65 @@
             <RowDefinition MaxHeight="60" Height="*" MinHeight="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="150" Width="*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="150" Width="1.5*"></ColumnDefinition>
             <ColumnDefinition MinWidth="150" Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Button Grid.Column="0" Grid.Row="0" Margin="5" Content="Выбрать таблицу"  
                 Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                Command="{Binding SearchUserCommand}" CommandParameter="{Binding SearchListUsers}" 
+                Command="{Binding OpenFileCommand}"
                 BorderThickness="0"/>
 
         <TextBox Grid.Column="1" Grid.Row="0" 
                  mah:TextBoxHelper.Watermark="Введите расположение файла с данными(Excel)"
                  Style="{StaticResource MahApps.Styles.TextBox.Search}" 
-                 mah:TextBoxHelper.ButtonCommand="{Binding SearchUserCommand}" 
-                 mah:TextBoxHelper.ButtonCommandParameter="{Binding SearchListUsers}"
-                 Text="{Binding SearchData, Mode=TwoWay}" 
+                 mah:TextBoxHelper.ButtonCommand="{Binding OpenFileCommand}" 
+                 Text="{Binding FileDataPath, Mode=TwoWay}" 
                  SpellCheck.IsEnabled="True" Margin="5" 
                  BorderBrush="Black"></TextBox>
 
         <Button Grid.Column="0" Grid.Row="1" 
                 Margin="5" Content="Выбрать куда сохранить" 
                 Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                Command="{Binding SearchUserCommand}" 
-                CommandParameter="{Binding SearchListUsers}" 
+                Command="{Binding OpenFolderCommand}"
                 BorderThickness="0"/>
 
         <TextBox Grid.Column="1" Grid.Row="1" 
                  mah:TextBoxHelper.Watermark="Введите расположение папки для сохранения"
                  Style="{StaticResource MahApps.Styles.TextBox.Search}" 
-                 mah:TextBoxHelper.ButtonCommand="{Binding SearchUserCommand}" 
-                 mah:TextBoxHelper.ButtonCommandParameter="{Binding SearchListUsers}" 
-                 Text="{Binding SearchData, Mode=TwoWay}" SpellCheck.IsEnabled="True" 
+                 mah:TextBoxHelper.ButtonCommand="{Binding OpenFolderCommand}" 
+                 Text="{Binding FolderPath, Mode=TwoWay}" SpellCheck.IsEnabled="True" 
                  Margin="5" BorderBrush="Black"></TextBox>
 
         <Button Grid.Column="0" Grid.Row="2" Margin="5" Content="Выбрать подложку" 
                 Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                Command="{Binding SearchUserCommand}" CommandParameter="{Binding SearchListUsers}" 
+                Command="{Binding OpenImageCommand}"
                 BorderThickness="0"/>
 
         <TextBox Grid.Column="1" Grid.Row="2" 
                  mah:TextBoxHelper.Watermark="Введите расположение фото подложки под сертификат"
                  Style="{StaticResource MahApps.Styles.TextBox.Search}"
-                 mah:TextBoxHelper.ButtonCommand="{Binding SearchUserCommand}" 
-                 mah:TextBoxHelper.ButtonCommandParameter="{Binding SearchListUsers}"
-                 Text="{Binding SearchData, Mode=TwoWay}" SpellCheck.IsEnabled="True"
+                 mah:TextBoxHelper.ButtonCommand="{Binding OpenImageCommand}" 
+                 Text="{Binding ImagePath, Mode=TwoWay}" SpellCheck.IsEnabled="True"
                  Margin="5" BorderBrush="Black"></TextBox>
 
-        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                 Content="Начать создание документов для мероприятия" Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                 Command="{Binding OpenCheckHelpInfoViewCommand}"
-                 BorderThickness="0"/>
-            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                  Content="Тип файлов" Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
                  Command="{Binding OpenCheckCreateViewCommand}"
-                 BorderThickness="0"/>      
+                 BorderThickness="0"/>
+            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                 Content="Как создавать?" Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
+                 Command="{Binding BInfoOpenCommand}"
+                 BorderThickness="0"/>
         </Grid>
-       
-
-
-
-      
-    
-       
-    <!--    <Border x:Name="ButtonInfoOpen" Background="#FF464646" CornerRadius="5,5,5,5" 
-            Margin="452,45,13,145" MouseEnter="ButtonInfoOpen_MouseEnter" MouseLeave="ButtonInfoOpen_MouseLeave" MouseDown="ButtonInfoOpen_MouseDown">
-            <Label Content="?" FontSize="20" HorizontalAlignment="Center" Foreground="#FFFBFBFB" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="35" Padding="0,0,0,0"/>
-        </Border>
-        
-       
-        <Border Background="#FF2B2727" CornerRadius="5,5,5,5" 
-            Margin="103,45,53,145" BorderBrush="DarkSlateBlue" BorderThickness="2,2,2,2">
-            <Label x:Name="LableFileExcel" Content="Откройте файл... (таблица)" Foreground="White" Margin="-2,2,2,1" ></Label>
-        </Border>
-        
-        
-        <Border Background="#FF2B2727" CornerRadius="5,5,5,5" 
-                 Margin="103,90,13,100" BorderBrush="DarkSlateBlue" BorderThickness="2,2,2,2">
-            <Label x:Name="LableFolder" Content="Откройте папку... (место для сохранения документов)" Foreground="White" Margin="-2,2,2,1" Background="{x:Null}" ></Label>
-        </Border>
-        
-        
-       
-        <Border Background="#FF2B2727" CornerRadius="5,5,5,5" 
-          Margin="103,135,13,55" BorderBrush="DarkSlateBlue" BorderThickness="2,2,2,2">
-            <Label x:Name="LablePodlFile" Content="Откройте картинку... (подложка для сертификатов)" Foreground="White" Margin="-2,2,2,1" Background="{x:Null}" ></Label>
-        </Border>
-        <Border x:Name="buttonStartProgram" Background="#FF494949" CornerRadius="5,5,5,5" 
-            Margin="65,180,65,10" BorderBrush="DarkSlateBlue" MouseEnter="buttonStartProgram_MouseEnter" MouseLeave="buttonStartProgram_MouseLeave" MouseDown="buttonStartProgram_MouseDown" >
-            <Label Content="Начать создание документов" Foreground="White" Margin="0,3,0,0" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ></Label>
-        </Border>
-        <Border x:Name="buttonOpenFolder" Background="#FF494949" CornerRadius="5,5,5,5" 
-                 Margin="13,90,402,100" MouseEnter="buttonOpenFolder_MouseEnter" MouseLeave="buttonOpenFolder_MouseLeave" MouseDown="buttonOpenFolder_MouseDown">
-            <Label Content="Выбрать" Foreground="White" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ></Label>
-        </Border>
-        <Border x:Name="buttonOpenFilePodl" Background="#FF494949" CornerRadius="5,5,5,5" 
-         Margin="13,135,402,55" MouseEnter="buttonOpenFilePodl_MouseEnter" MouseLeave="buttonOpenFilePodl_MouseLeave" MouseDown="buttonOpenFilePodl_MouseDown">
-            <Label Content="Выбрать" Foreground="White" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-        </Border>
-        <Border x:Name="buttonOpenFileExcel" Background="#FF494949" CornerRadius="5,5,5,5" 
-             Margin="13,45,402,145" MouseEnter="buttonOpenFileExcel_MouseEnter" MouseLeave="buttonOpenFileExcel_MouseLeave" MouseDown="buttonOpenFileExcel_MouseDown">
-            <Label Content="Выбрать" Foreground="White" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        </Border>
-         -->
+        <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+             Content="Начать создание документов для мероприятия" Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
+             Command="{Binding StartCreateComand}"
+             BorderThickness="0"/>
     </Grid>
 </mah:MetroWindow>
