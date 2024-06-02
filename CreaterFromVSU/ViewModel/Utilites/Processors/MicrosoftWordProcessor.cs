@@ -24,26 +24,15 @@ namespace CreaterFromVSU.ViewModel.Utilites
         public Thread sertificFrom_ochno;
         public Thread moder_dist;
         public Thread moder_ochno;
+
         private const string COMPETITION = "в {0} «{1}»,";
         private const string OLIMPIC = "в {0} {1},";
         private const string AGE = "возрастная категория «{0}»";
         private const string SCHOOL = "{0} {1}";
         private const string BIRTHDAY_SCHOOL = "{0} {1} {2}";
         private const string TEACHER = "Педагог: {0}";
-        public async System.Threading.Tasks.Task AddTextToTextBoxAsync(string text)
-        {
-            /*await System.Threading.Tasks.Task.Run(() =>
-            {
-                lock (locker)
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        *//* TextBoxLog.AppendText(text + Environment.NewLine);*//*
-                        PathPicture += text;
-                    });
-                }
-            });*/
-        }
+        private delegate void DiplomCreationDelegate(DiplomStruct diplom, string savePath);
+
         public struct Create_for
         {
             public bool city_dist;
@@ -58,12 +47,27 @@ namespace CreaterFromVSU.ViewModel.Utilites
             public bool moder_ochno;
         }
         private Thread createrDoc;
+
         private string PathOpen = "";
         private string FolderSave = "";
         private string PathPicture = "";
+
+        public async System.Threading.Tasks.Task AddTextToTextBoxAsync(string text)
+        {
+            /*await System.Threading.Tasks.Task.Run(() =>
+            {
+                lock (locker)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        *//* TextBoxLog.AppendText(text + Environment.NewLine);*//*
+                        PathPicture += text;
+                    });
+                }
+            });*/
+        }
         private object locker = new object();
-        
-        private delegate void DiplomCreationDelegate(DiplomStruct diplom, string savePath);
+
         public async void StartCreateDocuments(Create_for is_create_doc)
         {
             await AddTextToTextBoxAsync("Начало создания... (несколько минут будет чтение файлов с данными, после чего запустится создание документов)");
@@ -138,22 +142,198 @@ namespace CreaterFromVSU.ViewModel.Utilites
                 moder_ochno.Start();
             }
         }
+
+        public async void CreateModer(string foldelPathOut,
+            List<PlayersListStruct> playerList, Dictionary<string, ReferenceMaterialDictionary> referencesDic, string path)
+        {
+            try
+            {
+                int k = 0;
+                foreach (KeyValuePair<string, ReferenceMaterialDictionary> kvpair in referencesDic)
+                {
+                    Console.WriteLine("Создание для модераторов файла: " + kvpair.Value.TypeCompetition + " " + kvpair.Value.NameCompetition);
+                    Excel.Application excelApp = new Excel.Application();
+                    Excel.Workbook workbook = excelApp.Workbooks.Add();
+                    Excel.Worksheet worksheet = workbook.ActiveSheet;
+
+                    // Объединяем ячейки A1 и B1
+                    Excel.Range range = worksheet.Range["A1", "I1"];
+                    range.Merge();
+                    range.Value = "X Межрегиональный открытый фестиваль научно-технического творчества «РОБОАРТ-2024»";
+                    range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    range = worksheet.Range["A2", "I2"];
+                    range.Merge();
+                    range.Value = "Список участников";
+                    range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    range = worksheet.Range["A3", "I3"];
+                    range.Merge();
+                    range.Value = kvpair.Value.TypeCompetition + " " + kvpair.Value.NameCompetition + ", код " + kvpair.Key;
+                    range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    range = worksheet.Range["A4", "I4"];
+                    range.Merge();
+                    range.Value = kvpair.Value.AgeRank;
+                    range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    range = worksheet.Range["A6"]; range.Value = "№ П/П";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["B6"]; range.Value = "Название команды";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["C6"]; range.Value = "ФИО участника";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["D6"]; range.Value = "Дата рождения";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["E6"]; range.Value = "Учебное заведение";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["F6"]; range.Value = "ФИО руководителя";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["G6"]; range.Value = "Населенный пункт";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["H6"]; range.Value = "Отметка о прибытии";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range = worksheet.Range["I6"]; range.Value = "e-mail";
+                    range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+
+                    int i = 6;
+                    foreach (PlayersListStruct people in playerList)
+                    {
+                        if ((people.CodeContest is not null ? people.CodeContest.Contains(kvpair.Key) : false)
+                            || (people.CodeCompetition is not null ? people.CodeCompetition.Contains(kvpair.Key) : false)
+                            || (people.CodeExhibition is not null ? people.CodeExhibition.Contains(kvpair.Key) : false)
+                            || (people.OlympicsContest is not null ? people.OlympicsContest.Contains(kvpair.Key) : false))
+                        {
+                            i++;
+                            range = worksheet.Range["A" + i.ToString()]; range.Value = (i - 6).ToString();
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["B" + i.ToString()]; range.Value = people.NameCommand;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["C" + i.ToString()]; range.Value = people.FioPlayers;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["D" + i.ToString()]; range.Value = people.BirthdayPlayers;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["E" + i.ToString()]; range.Value = people.SchoolPlayers;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["F" + i.ToString()]; range.Value = people.TeacherPlayers;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["G" + i.ToString()]; range.Value = people.CityPlayers;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["H" + i.ToString()];
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range = worksheet.Range["I" + i.ToString()]; range.Value = people.eMail;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            range.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        }
+                    }
+
+                    Excel.Range columnB = worksheet.Columns["A"];
+                    columnB.ColumnWidth = 6;
+                    columnB = worksheet.Columns["B"];
+                    columnB.ColumnWidth = 15;
+                    columnB = worksheet.Columns["C"];
+                    columnB.ColumnWidth = 33;
+                    columnB = worksheet.Columns["D"];
+                    columnB.ColumnWidth = 13.5;
+                    columnB = worksheet.Columns["E"];
+                    columnB.ColumnWidth = 25;
+                    columnB = worksheet.Columns["F"];
+                    columnB.ColumnWidth = 33;
+                    columnB = worksheet.Columns["G"];
+                    columnB.ColumnWidth = 16;
+                    columnB = worksheet.Columns["H"];
+                    columnB.ColumnWidth = 18;
+                    columnB = worksheet.Columns["I"];
+                    columnB.ColumnWidth = 30;
+
+                    if (!Directory.Exists(foldelPathOut + @"\" + path))
+                    {
+                        Directory.CreateDirectory(foldelPathOut + @"\" + path);
+                    }
+                    workbook.SaveAs(foldelPathOut + @"\" + path + @"\" + kvpair.Key.Replace(@"\", "").Replace("\"", ""));
+                    workbook.Close();
+                    excelApp.Quit();
+                    await AddTextToTextBoxAsync(("Создан файл: " + kvpair.Value.TypeCompetition.Replace(@"\", "").Replace("\"", "") + " " + kvpair.Value.NameCompetition.Replace(@"\", "").Replace("\"", "") + " -> " + (i - 6).ToString() + " участников") + " | " + path);
+                    k = k + i - 6;
+                }
+                await AddTextToTextBoxAsync("Файлы " + path + " созданы, кол-во участников: " + k.ToString());
+            }
+            catch (Exception ex)
+            {
+               /* MessageBox.Show(ex.Message);*/
+            }
+        }
+
         public void CreateCertificateWithBacking(string type, List<PlayersListStruct> players, Dictionary<string, ReferenceMaterialDictionary> dictionaryReferences,
                                         Dictionary<string, string> dictionaryCities)
         {
-            CreateWordPage(CreateSertificatWithBacking, type, players, dictionaryReferences, dictionaryCities);
+            CreateWord(CreateSertificatWithBacking, type, players, dictionaryReferences, dictionaryCities);
         }
         public void CreateCertificate(string type, List<PlayersListStruct> players, Dictionary<string, ReferenceMaterialDictionary> dictionaryReferences,
                                         Dictionary<string, string> dictionaryCities)
         {
-            CreateWordPage(CreateSertificat, type, players, dictionaryReferences, dictionaryCities);
+            CreateWord(CreateSertificat, type, players, dictionaryReferences, dictionaryCities);
         }
         public void CreateDiploms(string type, List<PlayersListStruct> players, Dictionary<string, ReferenceMaterialDictionary> dictionaryReferences,
                                         Dictionary<string, string> dictionaryCities)
         {
-            CreateWordPage(CreateDiplom, type, players, dictionaryReferences, dictionaryCities);
+            CreateWord(CreateDiplom, type, players, dictionaryReferences, dictionaryCities);
         }
-        private void CreateParagrahp(ref Document document, string text, int countParagraph,
+        private void CreateParagrahp(ref Word.Document document, string text, int countParagraph,
                                                 int spaceBefor, int spaceAfter)
         {
             Word.Paragraph paragraph = document.Paragraphs.Add();
@@ -252,6 +432,7 @@ namespace CreaterFromVSU.ViewModel.Utilites
             doc.Close();
             wordApp.Quit();
         }
+
         private void CreateSertificatWithBacking(DiplomStruct diplom, string SavePath)
         {
             var wordApp = new Word.Application();
@@ -314,7 +495,8 @@ namespace CreaterFromVSU.ViewModel.Utilites
             doc.Close();
             wordApp.Quit();
         }
-        private async void CreateWordPage(DiplomCreationDelegate creationDelegate, string folderMain, List<PlayersListStruct> players, Dictionary<string, ReferenceMaterialDictionary> dictionaryReferences,
+
+        private async void CreateWord(DiplomCreationDelegate creationDelegate, string folderMain, List<PlayersListStruct> players, Dictionary<string, ReferenceMaterialDictionary> dictionaryReferences,
                                         Dictionary<string, string> dictionaryCities)
         {
             try

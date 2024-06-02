@@ -5,6 +5,11 @@ namespace CreaterFromVSU.ViewModel.WorkConsole
     class WorkConsoleViewModel : BasicViewModel
     {
         private string _logText;
+
+        public WorkConsoleViewModel()
+        {
+        }
+
         public string LogText {  
             get 
             { 

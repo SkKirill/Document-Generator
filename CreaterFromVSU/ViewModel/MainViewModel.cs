@@ -45,6 +45,7 @@ namespace CreaterFromVSU.ViewModel
                 OnPropertyChanged("FileDataPath");
             }
         }
+
         public ICommand OpenCheckCreateViewCommand => new RelayCommand(OpenCheckCreateView);
         public ICommand StartCreateComand => new RelayCommand(StartCreate);
         public ICommand OpenFolderCommand => new RelayCommand(OpenFolder);
@@ -83,7 +84,12 @@ namespace CreaterFromVSU.ViewModel
         {
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    FileName = "Image",
+                    DefaultExt = ".png",
+                    Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls"
+                };
                 openFileDialog.ShowDialog();
             }
             catch (Exception ex)
@@ -108,6 +114,7 @@ namespace CreaterFromVSU.ViewModel
         {
             WindowHelpInfo windowHelp = new WindowHelpInfo();
             windowHelp.Show();
+            MessageBox.Show("Успешное создание документов для мероприятия", "Завершение работы");
         }
     }
 }

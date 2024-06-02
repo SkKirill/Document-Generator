@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CreaterFromVSU.ViewModel.CheckCreate"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="Выбор типов файлов" MaxWidth="600" MaxHeight="335">
+        Title="Выбор типов файлов">
     <mah:MetroWindow.DataContext>
         <local:CheckCreateViewModel></local:CheckCreateViewModel>
     </mah:MetroWindow.DataContext>
@@ -21,8 +21,17 @@
         <CheckBox x:Name="sertificFrom_ochno" Background="White" Margin="8,0,5,4" Content="Сертификаты__с__подложкой-очно" Foreground="White"/>
         <CheckBox x:Name="moder_dist" Background="White" Margin="8,10,5,2" Content="Листы__модераторам-дистант" Foreground="White"/>
         <CheckBox x:Name="moder_ochno" Background="White" 
-                      Margin="8,0,5,4" Content="Листы_модераторам-очно" 
+                      Margin="8,0,5,4" Content="Листы__модераторам-очно" 
                       Foreground="White"/>
+
+        <CheckBox  Background="White" Margin="8,10,5,2" Content="Сводные данные по городам" Foreground="White"/>
+        <CheckBox Background="White" Margin="8,0,5,4" Content="Листы по каждому соревнованию" Foreground="White"/>
+        <CheckBox Background="White" Margin="8,10,5,2" Content="Лист всех участников очно" Foreground="White"/>
+        <CheckBox Background="White" Margin="8,0,5,4" Content="Лист всех участников дистант" Foreground="White"/>
+        <CheckBox Background="White" Margin="8,10,5,2" Content="Лист подведения итогов очно" Foreground="White"/>
+        <CheckBox Background="White" 
+              Margin="8,0,5,4" Content="Лист подведения итогов дистант" 
+              Foreground="White"/>
 
         <Button Margin="5" 
                 Content="Выбрать типы файлов для создания"  
